@@ -1,4 +1,4 @@
-package database
+package bookctlr
 
 import (
 	"github.com/beckojr/go-clean-architecture/domain/model"

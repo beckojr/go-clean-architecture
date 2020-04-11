@@ -1,4 +1,4 @@
-package bookctlr
+package adapter
 
 // Context to be implemented by the web framework
 type Context interface {

@@ -5,17 +5,18 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/beckojr/go-clean-architecture/adapter"
 	"github.com/beckojr/go-clean-architecture/domain/model"
 	"github.com/beckojr/go-clean-architecture/usecase/booksvc"
 )
 
 //BookController defines /books endpoint handlers
 type BookController interface {
-	GetBook(context Context) error
-	ListBooks(context Context) error
-	NewBook(context Context) error
-	UpdateBook(context Context) error
-	DeleteBook(context Context) error
+	GetBook(context adapter.Context) error
+	ListBooks(context adapter.Context) error
+	NewBook(context adapter.Context) error
+	UpdateBook(context adapter.Context) error
+	DeleteBook(context adapter.Context) error
 }
 
 type bookController struct {
@@ -28,7 +29,7 @@ func New(s booksvc.BookService) BookController {
 }
 
 // GetBook handler that retrieves a book
-func (c *bookController) GetBook(context Context) error {
+func (c *bookController) GetBook(context adapter.Context) error {
 	bookID, err := strconv.ParseInt(context.Param("id"), 10, 64)
 	if err != nil {
 		return context.JSON(http.StatusBadRequest, map[string]string{"message": "The book ID is malformed"})
@@ -42,7 +43,7 @@ func (c *bookController) GetBook(context Context) error {
 }
 
 // ListBooks handler that list all books
-func (c *bookController) ListBooks(context Context) error {
+func (c *bookController) ListBooks(context adapter.Context) error {
 	var books []*model.Book
 	b, err := c.service.AllBooks(books)
 	if err != nil {
@@ -52,7 +53,7 @@ func (c *bookController) ListBooks(context Context) error {
 }
 
 // NewBook handler that add a new book to the store
-func (c *bookController) NewBook(context Context) error {
+func (c *bookController) NewBook(context adapter.Context) error {
 	book := &model.Book{}
 	err := context.Bind(book)
 	if err != nil {
@@ -67,7 +68,7 @@ func (c *bookController) NewBook(context Context) error {
 }
 
 // UpdateBook update handler
-func (c *bookController) UpdateBook(context Context) error {
+func (c *bookController) UpdateBook(context adapter.Context) error {
 	bookID, err := strconv.ParseInt(context.Param("id"), 10, 64)
 	if err != nil {
 		return context.JSON(http.StatusBadRequest, map[string]string{"message": "The book ID is malformed"})
@@ -85,7 +86,7 @@ func (c *bookController) UpdateBook(context Context) error {
 }
 
 // DeleteBook delete handler
-func (c *bookController) DeleteBook(context Context) error {
+func (c *bookController) DeleteBook(context adapter.Context) error {
 	bookID, err := strconv.ParseInt(context.Param("id"), 10, 64)
 	if err != nil {
 		return context.JSON(http.StatusBadRequest, map[string]string{"message": "The book ID is malformed"})

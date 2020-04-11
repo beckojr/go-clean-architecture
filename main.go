@@ -13,7 +13,7 @@ import (
 func main() {
 	db := database.NewDatabase()
 	defer db.Close()
-	repo := database.NewBookRepository(db)
+	repo := bookctlr.NewBookRepository(db)
 	bookService := booksvc.New(repo)
 	app := bookctlr.New(bookService)
 	e := echo.New()

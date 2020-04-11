@@ -1,4 +1,4 @@
-package adapter
+package appctlr
 
 import "github.com/beckojr/go-clean-architecture/adapter/bookctlr"
 

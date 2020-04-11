@@ -1,13 +1,13 @@
 package router
 
 import (
-	"github.com/beckojr/go-clean-architecture/adapter"
+	"github.com/beckojr/go-clean-architecture/adapter/appctlr"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 )
 
 // New create a new router
-func New(e *echo.Echo, c adapter.AppController) *echo.Echo {
+func New(e *echo.Echo, c appctlr.AppController) *echo.Echo {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
